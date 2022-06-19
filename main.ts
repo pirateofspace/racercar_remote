@@ -1,4 +1,4 @@
-function controlLeds () {
+function controlLeds() {
     if (power > 0 && power <= 10) {
         basic.showLeds(`
             . . . . .
@@ -88,8 +88,11 @@ function controlLeds () {
             # . . . #
             `)
     }
+    
 }
-function compute_power_value () {
+
+function compute_power_value() {
+    
     pitch = input.rotation(Rotation.Roll)
     power = pitch / 90
     power = power * 100
@@ -99,16 +102,19 @@ function compute_power_value () {
     } else if (power < -100) {
         power = -100
     }
+    
 }
+
 let pitch = 0
 let power = 0
 radio.setGroup(138)
 let msg_send = 0
-basic.forever(function () {
+basic.forever(function on_forever() {
+    
     compute_power_value()
     controlLeds()
     radio.sendNumber(power)
     msg_send += 1
-    basic.showString("" + (msg_send))
+    basic.showString("" + ("" + msg_send))
     control.waitMicros(2500)
 })
