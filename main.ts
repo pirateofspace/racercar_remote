@@ -93,6 +93,7 @@ function compute_power_value () {
     pitch = input.rotation(Rotation.Roll)
     power = pitch / 90
     power = power * 100
+    power = power * -1
     if (power > 100) {
         power = 100
     } else if (power < -100) {
@@ -102,9 +103,12 @@ function compute_power_value () {
 let pitch = 0
 let power = 0
 radio.setGroup(138)
+let msg_send = 0
 basic.forever(function () {
     compute_power_value()
     controlLeds()
     radio.sendNumber(power)
-    control.waitMicros(100)
+    msg_send += 1
+    basic.showString("" + (msg_send))
+    control.waitMicros(2500)
 })
