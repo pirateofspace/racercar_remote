@@ -98,12 +98,13 @@ function compute_power_value () {
     } else if (power < -100) {
         power = -100
     }
-    basic.showString("" + (power))
 }
 let pitch = 0
 let power = 0
 radio.setGroup(138)
 basic.forever(function () {
     compute_power_value()
+    controlLeds()
     radio.sendNumber(power)
+    control.waitMicros(100)
 })
